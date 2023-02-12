@@ -18,9 +18,11 @@ from django.urls import path
 
 from .views import home_view
 from articles import views
+from accounts.views import *
 
 urlpatterns = [
     path('', home_view),
+    path('login/', login_view),
     path('articles/', views.article_search_view),
     path('articles/create/', views.article_create_view),
     path('articles/<int:id>/', views.article_home_view),
