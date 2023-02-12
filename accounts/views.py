@@ -1,11 +1,10 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
 def login_view(request):
     if request.method == "POST":
         username = request.POST.get("username")
         password = request.POST.get("password")
-        print(username, password)
         user = authenticate(request, username=username, password=password)
         if user is None:
             context = {"error": "Invalid username or password."}
@@ -15,7 +14,9 @@ def login_view(request):
     return render(request, "accounts/login.html")
 
 def logout_view(request):
-
+    if request.method == "POST":
+        logout(request)
+        return redirect("/login/")
     context = {}
     return render(request, "accounts/logout.html", context=context)
 
